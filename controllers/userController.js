@@ -1,32 +1,41 @@
 var User = require("../models/user");
 var bcrypt = require("bcryptjs");
-const passport = require("passport");
+var { body, validationResult } = require("express-validator");
 
 exports.user_create_get = function (req, res, next) {
     res.render("sign_up_form", { title: "Sign Up" })
 }
 
-exports.user_create_post = function(req, res, next) {
-    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
-      const user = new user({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: hashedPassword,
-        member: false
-      }).save(err => {
-        if (err) { return next(err) }
+exports.user_create_post = [
+  body("first_name").trim().isLength({ min: 1 }).escape().withMessage("First name must be specified")
+    .isAlphanumeric().withMessage("First name has non-alphanumeric characters"),
+  body("last_name").trim().isLength({ min: 1 }).escape().withMessage("Last name must be specified")
+    .isAlphanumeric().withMessage("Last name has non-alphanumeric characters"),
+  body("username").trim().isLength({ min: 1 }).escape().withMessage("Username must be specified")
+  .isAlphanumeric().withMessage("Username has non-alphanumeric characters"),
+  body("password").trim().isLength({ min: 1 }).escape().withMessage("Password must be specified"),
+  (req, res, next) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      res.render("sign_up_form", { title: "Sign up", errors: errors.array() })
+      return
+    } else {
+      bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+        const user = new User({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          username: req.body.username,
+          password: hashedPassword,
+        }).save(err => {
+          if (err) { return next(err) }
+        })
       })
-    })
-    res.redirect("/login")
+      res.redirect('/login')
+    }
   }
+]
 
 exports.user_login_get = function (req, res, next) {
-    res.render("login_form")
+    res.render("login_form", { title: "Login" })
 }
 
-exports.user_login_post = passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/catalog/login',
-    
-});

@@ -6,9 +6,6 @@ var UserSchema = new Schema({
     last_name: {type: String, required: true, maxLength: 100},
     username: {type: String, required: true, maxLength: 100},
     password: {type: String, required: true, maxLength: 100},
-    member: {type: Boolean, default: false }
 })
-
-
 
 module.exports = mongoose.model("User", UserSchema)
