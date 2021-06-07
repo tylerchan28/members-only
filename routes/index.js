@@ -17,6 +17,9 @@ router.post("/login", userController.user_login_post);
 
 router.get("/logout", userController.user_logout_get);
 
+router.get("/become-a-member", userController.user_member_get);
+router.post("/become-a-member", userController.user_member_post);
+
 // Message Routes
 router.get("/", messageController.get_messages);
 router.post("/", messageController.create_message)

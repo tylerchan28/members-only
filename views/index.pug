@@ -8,6 +8,7 @@ block content
     p Welcome Back #{user.username}!
     a(href="/sign-up") Sign Up
     a(href="/logout") Log Out
+    a(href="/become-a-member") Become A Member
 
     form(method="POST", action="")
       div
@@ -18,10 +19,10 @@ block content
     if messages
       each message in messages
         div.message
-          p #{message.title}
-          p #{message.text}
-          p posted at #{message.date_formatted}
-          p by #{message.user.username}
+          p.message-input #{message.title}
+          p.message-input #{message.text}
+          p.message-input posted at #{message.date_formatted}
+          p.message-input by #{message.user.username}
 
     else 
      p No messages.
@@ -29,3 +30,13 @@ block content
     p Please login or sign up!
     a(href="/sign-up") Sign Up
     a(href="/login") Log In
+
+    if messages
+      each message in messages
+        div.message
+          p.message-input #{message.title}
+          p.message-input #{message.text}
+          p.message-input by Anonymous
+
+    else 
+     p No messages.

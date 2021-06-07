@@ -5,8 +5,15 @@ body {
 
 a {
   color: #00B7FF;
+  text-decoration: none;
 }
 
 .message {
   border: 1px solid black;
+  max-width: 20%;
+}
+
+.message-input {
+  padding-left: 30px;
+  word-wrap: break-all;
 }

@@ -53,7 +53,7 @@ exports.user_create_post = [
 ]
 
 exports.user_login_get = function (req, res, next) {
-    res.render("login_form", { title: "Login" })
+  res.render("login_form", { title: "Login" })
 }
 
 exports.user_login_post = passport.authenticate("local", {
@@ -65,3 +65,29 @@ exports.user_logout_get = function (req, res) {
   req.logout();
   res.redirect("/");
 }
+
+exports.user_member_get = function (req, res) {
+  res.render("member_form");
+}
+
+exports.user_member_post = [
+  body("code")
+    .custom((value) => {
+      if (value === "member") {
+        return true
+      } else {
+        throw new Error("That's not the secret code! Try again!")
+      }
+    }).escape(),
+    (req, res, next) => {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        res.render("member_form", { errors: errors.array() })
+      } else {
+        User.findByIdAndUpdate(req.user._id, { member: true }, {}, (err) => {
+          if (err) { return next(err) }
+          res.redirect("/")
+        })
+      }
+    }
+]
