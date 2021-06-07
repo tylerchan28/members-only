@@ -3,6 +3,29 @@ extends layout
 block content
   h1= title
   
-  hr
-  a(href="/sign-up") Sign Up
-  a(href="/login") Log In
+  if user
+    hr
+    p Welcome Back #{user.username}!
+    a(href="/sign-up") Sign Up
+    a(href="/logout") Log Out
+
+    form(method="POST", action="")
+      div
+        input#title.form-control(type="text", placeholder="Tite", name="title", required="true")
+        textarea(type="text", placeholder="Write a message...", name="text", required="true")
+      button(type="submit") Submit
+
+    if messages
+      each message in messages
+        div.message
+          p #{message.title}
+          p #{message.text}
+          p posted at #{message.date_formatted}
+          p by #{message.user.username}
+
+    else 
+     p No messages.
+  else 
+    p Please login or sign up!
+    a(href="/sign-up") Sign Up
+    a(href="/login") Log In
