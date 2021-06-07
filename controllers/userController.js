@@ -12,8 +12,24 @@ exports.user_create_post = [
   body("last_name").trim().isLength({ min: 1 }).escape().withMessage("Last name must be specified")
     .isAlphanumeric().withMessage("Last name has non-alphanumeric characters"),
   body("username").trim().isLength({ min: 1 }).escape().withMessage("Username must be specified")
-  .isAlphanumeric().withMessage("Username has non-alphanumeric characters"),
+  .isAlphanumeric().withMessage("Username has non-alphanumeric characters")
+  .custom(async (username) => {
+    try {
+      const existingUsername = await User.findOne({ username: username })
+      if (existingUsername) {
+        throw new Error("Username is taken")
+      }
+    } catch (err) {
+      throw new Error(err)
+    }
+  }),
   body("password").trim().isLength({ min: 1 }).escape().withMessage("Password must be specified"),
+  body("confirm-password").custom((value, { req }) => {
+    if (value != req.body.password) {
+      throw new Error("Passwords do not match")
+    }
+    return true;
+  }),
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
