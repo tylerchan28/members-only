@@ -1,6 +1,9 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 a {
@@ -8,12 +11,123 @@ a {
   text-decoration: none;
 }
 
+textarea {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  width: 1391px;
+  height: 100px;
+  resize: none;
+  padding: 10px 0 0 10px;
+}
+
+.member-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-btn {
+  background: none;
+  border: none;
+  color: #00B7FF;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-title {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-left: 10px;
+  height: 30px;
+  width: 1388px;
+}
+
+.header-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header-title {
+  color: black;
+  font-size: 36px;
+  text-decoration: none;
+}
+
 .message {
   border: 1px solid black;
-  max-width: 20%;
+  margin-top: 20px;
+  width: 70%
+
+}
+
+.message-form {
+  margin-top: 30px;
 }
 
 .message-input {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   padding-left: 30px;
+  padding-right: 30px;
   word-wrap: break-all;
+}
+
+.message-input__title {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 30px;
+  padding-right: 30px;
+  word-wrap: break-all;
+}
+
+.message-input__details {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  padding-left: 30px;
+  padding-right: 30px;
+  word-wrap: break-all;
+}
+
+.nav-item {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.new-message {
+  display: flex;
+  flex-direction: column;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #d62020;
+  font-weight: bold;
+  margin: 5px 0 0 22px;
+  padding-bottom: 5px;
+}
+
+.submit-btn {
+  background: none;
+  border: none;
+  color: #00B7FF;
+  font-weight: bold;
+  padding: 10px;
 }

@@ -58,7 +58,8 @@ exports.user_login_get = function (req, res, next) {
 
 exports.user_login_post = passport.authenticate("local", {
   failureRedirect: "/login",
-  successRedirect: "/"
+  successRedirect: "/",
+  failureFlash: "Incorrect username or password."
 });
 
 exports.user_logout_get = function (req, res) {
@@ -67,7 +68,7 @@ exports.user_logout_get = function (req, res) {
 }
 
 exports.user_member_get = function (req, res) {
-  res.render("member_form");
+  res.render("member_form", { user: req.user });
 }
 
 exports.user_member_post = [
@@ -85,6 +86,33 @@ exports.user_member_post = [
         res.render("member_form", { errors: errors.array() })
       } else {
         User.findByIdAndUpdate(req.user._id, { member: true }, {}, (err) => {
+          if (err) { return next(err) }
+          res.redirect("/")
+        })
+      }
+    }
+]
+
+exports.user_admin_get = function(req, res) {
+  res
+  .render("admin_form", { user: req.user })
+}
+
+exports.user_admin_post = [
+  body("code")
+    .custom((value) => {
+      if (value === "admin") {
+        return true
+      } else {
+        throw new Error("That's not the secret code! Try again!")
+      }
+    }).escape(),
+    (req, res, next) => {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        res.render("admin_form", { errors: errors.array() })
+      } else {
+        User.findByIdAndUpdate(req.user._id, { admin: true }, {}, (err) => {
           if (err) { return next(err) }
           res.redirect("/")
         })

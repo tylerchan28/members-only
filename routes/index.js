@@ -20,8 +20,13 @@ router.get("/logout", userController.user_logout_get);
 router.get("/become-a-member", userController.user_member_get);
 router.post("/become-a-member", userController.user_member_post);
 
+router.get("/become-an-admin", userController.user_admin_get);
+router.post("/become-an-admin", userController.user_admin_post);
+
 // Message Routes
 router.get("/", messageController.get_messages);
-router.post("/", messageController.create_message)
+router.post("/", messageController.create_message);
+router.get("/:id/delete", messageController.delete_message);
+
 
 module.exports = router;

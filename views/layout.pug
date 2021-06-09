@@ -1,7 +1,20 @@
 doctype html
 html
   head
-    title= title
+    title Member's Only
     link(rel='stylesheet', href='/stylesheets/style.css')
+  header 
+    div.header-container
+      a.header-title(href="/") Member's Only
+
+      if user 
+        div
+          a.nav-item(href="/become-a-member") Become A Member
+          a.nav-item(href="/become-an-admin") Become An Admin  
+          a.nav-item(href="/logout") Log Out  
+      else 
+        div
+          a.nav-item(href="/sign-up") Sign Up
+          a.nav-item(href="/login") Log In
   body
     block content

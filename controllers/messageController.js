@@ -2,7 +2,7 @@ var Message = require("../models/message");
 
 exports.get_messages = async function(req, res, next) {
     try {
-        const messages = await Message.find({});
+        const messages = await Message.find({}).sort({ timestamp: -1 });
         if (!messages) {
             return next("No messages.")
     }
@@ -21,4 +21,13 @@ exports.create_message = function(req, res, next) {
         if (err) { return next(err) }
         res.redirect("/");
     })
+}
+
+exports.delete_message = async function(req, res, next) {
+  try {
+      await Message.findByIdAndDelete(req.params.id)
+  } catch(err) {
+        return next(err)
+  }
+  res.redirect("/")
 }

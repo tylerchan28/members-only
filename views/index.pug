@@ -4,39 +4,48 @@ block content
   h1= title
   
   if user
-    hr
-    p Welcome Back #{user.username}!
-    a(href="/sign-up") Sign Up
-    a(href="/logout") Log Out
-    a(href="/become-a-member") Become A Member
+    p Welcome back #[strong #{user.username}]!                                                     
 
-    form(method="POST", action="")
-      div
-        input#title.form-control(type="text", placeholder="Tite", name="title", required="true")
-        textarea(type="text", placeholder="Write a message...", name="text", required="true")
-      button(type="submit") Submit
+    div.form-container
+      div.message-form
+        form(method="POST", action="")
+          div.new-message
+            input#message.form-title(type="text", placeholder="Title", name="title", required="true")
+            textarea(type="text", placeholder="Write a message...", name="text", required="true")
+          button.submit-btn(type="submit") Submit
 
-    if messages
-      each message in messages
-        div.message
-          p.message-input #{message.title}
-          p.message-input #{message.text}
-          p.message-input posted at #{message.date_formatted}
-          p.message-input by #{message.user.username}
+    
+    div.message-container
+      if messages
+        each message in messages
+          if user.admin === true
+            div.message
+              p.message-input__title #{message.title}
+              p.message-input #{message.text}
+              p.message-input__details posted #{message.date_formatted} by #{message.user.username}
+              form(action=`/${message._id}/delete` method="GET") 
+                button.remove-btn Remove
+          else if user.member === true
+            div.message
+              p.message-input__title #{message.title}
+              p.message-input #{message.text}
+              p.message-input__details posted #{message.date_formatted} by #{message.user.username}
+          else 
+            div.message
+              p.message-input #{message.title}
+              p.message-input #{message.text}
+              p.message-input__details by Anonymous
+      
 
-    else 
-     p No messages.
+      else 
+        p No messages.
   else 
-    p Please login or sign up!
-    a(href="/sign-up") Sign Up
-    a(href="/login") Log In
-
     if messages
       each message in messages
         div.message
-          p.message-input #{message.title}
+          p.message-input__title #{message.title}
           p.message-input #{message.text}
-          p.message-input by Anonymous
+          p.message-input__details by Anonymous
 
     else 
      p No messages.
