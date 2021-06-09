@@ -1,12 +1,17 @@
 extends layout 
 
 block content 
-  h1= title
+  div.login-container
+    h1= title
 
-  form(method="POST" action="")
-    div 
-      label(for="username") Username: 
-      input#username.form-control(type="text", name="username", required="true")
-      label(for="password") Password:
-      input#password.form-control(type="password", name="password", required="true")
-    button(type="submit") Log in  
+    form.login-form(method="POST" action="")
+      div.login-form-container
+        label(for="username") Username: 
+        input#username.login-input(type="text", name="username", required="true" autocomplete="off")
+        label(for="password") Password:
+        input#password.login-input(type="password", name="password", required="true")
+      button.submit-btn(type="submit") Log in  
+  
+  if messages 
+   each message in messages 
+     li= message

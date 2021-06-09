@@ -1,5 +1,6 @@
 body {
   padding: 50px;
+  background-color: rgb(201, 209, 235);
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -11,12 +12,32 @@ a {
   text-decoration: none;
 }
 
+
 textarea {
+  border: 1px solid black;
+  border-radius: 3px;
+  border-top: none;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   width: 1391px;
   height: 100px;
   resize: none;
   padding: 10px 0 0 10px;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.login-input {
+  margin: 10px 0 10px 0;
 }
 
 .member-container {
@@ -33,7 +54,7 @@ textarea {
 .member-btn {
   background: none;
   border: none;
-  color: #00B7FF;
+  color: rgb(21, 21, 209);
   font-weight: bold;
   margin-top: 5px;
 }
@@ -51,6 +72,8 @@ textarea {
 }
 
 .form-title {
+  border: 1px solid black;
+  border-radius: 5px;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   padding-left: 10px;
   height: 30px;
@@ -67,14 +90,21 @@ textarea {
 .header-title {
   color: black;
   font-size: 36px;
-  text-decoration: none;
+  text-decoration: none;    
+}
+
+.login-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
+  background-color: white;
   border: 1px solid black;
+  border-radius: 3px;
   margin-top: 20px;
   width: 70%
-
 }
 
 .message-form {
@@ -106,6 +136,7 @@ textarea {
 }
 
 .nav-item {
+  color: rgb(21, 21, 209);
   font-weight: bold;
   margin-right: 20px;
 }
@@ -127,7 +158,7 @@ textarea {
 .submit-btn {
   background: none;
   border: none;
-  color: #00B7FF;
+  color: rgb(21, 21, 209);
   font-weight: bold;
-  padding: 10px;
+  padding: 15px;
 }

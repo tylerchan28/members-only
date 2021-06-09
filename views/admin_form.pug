@@ -1,15 +1,16 @@
 extends layout 
 
 block content 
-  div.member-container
-    h1 Become an Admin
+    div.member-container
+      h1 Become an Admin
+      h3 Admins can see authors and dates of posts, as well as remove posts.
 
-    p Enter the secret code to become an admin.  
+      p Enter the secret code to become an admin.  
     
-    form.member-form(method="POST", action="")
-      input#code.form-control(type="text", name="code", required="true")
-      button.member-btn(type="submit") Submit
+      form.member-form(method="POST", action="")
+        input#code.form-control(type="text", name="code", required="true")
+        button.member-btn(type="submit") Submit
 
-    if errors 
-      each error in errors 
-        li= error.msg
+      if errors 
+        each error in errors 
+          li= error.msg

@@ -6,6 +6,7 @@ var passport = require("passport");
 var session = require("express-session");
 var LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user");
+var flash = require('connect-flash');
 
 var mongoose = require("mongoose");
 var mongoDB = process.env.MONGO_URI;
@@ -18,13 +19,13 @@ passport.use(
     User.findOne({ username: username }, (err, user) => {
       if (err) { return done(err) }
       if (!user) {
-        return done(null, false, { message: "Incorrect username!" })
+        return done(null, false, { messages: "Incorrect username!" })
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
           return done(null, user)
         } else {
-          return done(null, false, { message: "Incorrect password!"})
+          return done(null, false, { messages: "Incorrect password!"})
         }
       })
     })
@@ -69,7 +70,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(flash())
 
 // route handling code
 app.use('/', indexRouter);

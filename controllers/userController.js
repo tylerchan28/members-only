@@ -59,7 +59,7 @@ exports.user_login_get = function (req, res, next) {
 exports.user_login_post = passport.authenticate("local", {
   failureRedirect: "/login",
   successRedirect: "/",
-  failureFlash: "Incorrect username or password."
+  failureFlash: true
 });
 
 exports.user_logout_get = function (req, res) {
